@@ -27,19 +27,15 @@ jobs:
           channel: 'stable'
 
       - name: Install Dependencies
-        run: |
-          if [ -d "ranpur_dashboard" ]; then cd ranpur_dashboard; fi
-          flutter pub get
+        working-directory: ranpur_dashboard
+        run: flutter pub get
 
       - name: Build Release APK
-        run: |
-          if [ -d "ranpur_dashboard" ]; then cd ranpur_dashboard; fi
-          flutter build apk --release
+        working-directory: ranpur_dashboard
+        run: flutter build apk --release
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ranpur-dashboard-apk
-          path: |
-            build/app/outputs/flutter-apk/app-release.apk
-            ranpur_dashboard/build/app/outputs/flutter-apk/app-release.apk
+          path: ranpur_dashboard/build/app/outputs/flutter-apk/app-release.apk
